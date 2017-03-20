@@ -1,3 +1,17 @@
+/**
+* file: ManWolf.java
+* author: Alexander Goncalves
+* course: CMPT 440
+* assignment: project 1
+* due date: March 20th, 2017
+* version 1
+*
+* ManWolf
+* This class is the ManWolf class which is used to solve the
+* Man Wolf Goat Cabbage Problem. It is implemented with a 
+* table-driven approach.
+*/
+
 class ManWolf {
   private static final int Q0 = 0;
   private static final int Q1 = 1;
