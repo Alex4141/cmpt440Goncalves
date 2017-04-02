@@ -1,0 +1,11 @@
+Q0, West: Nothing, East: Man Goat Wolf and Cabbage
+Q1, West: Man and Goat, East: Wolf and Cabbage
+Q2, West: Goat, East: Man Wolf and Cabbage
+Q3, West: Man Wolf and Goat, East: Cabbage
+Q4, West: Wolf, East: Man Goat and Cabbage
+Q5, West: Man Goat Cabbage, East: Wolf
+Q6, West: Cabbage, East: Man Wolf and Goat
+Q7, West: Man Wolf and Cabbage, East: Goat
+Q8, West: Wolf and Cabbage, East: Goat and Man
+Q9, West: Man Goat Wolf and Cabbage, East: Nothing
+Q10, Error State, Error State
