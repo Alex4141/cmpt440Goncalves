@@ -9,14 +9,24 @@ class Mkdir extends Command {
 	public static final int OPTION_LEN = 0;
 
 	public String execute(ArrayList<String> param){
-		File newDirectory = new File(param.get(0));
+		
+		String path;
+		if(this.OS.contains("Windows")){
+			path = "C:\\Users\\" + (String)System.getProperty("user.name") + "\\Desktop\\";
+		} else if(this.OS.contains("Mac")){
+			path = "/Users/" + (String)System.getProperty("user.name") + "/Desktop/";
+		} else {
+			path = "/home/" + (String)System.getProperty("user.name") + "/Desktop/";
+		}
+
+		File newDirectory = new File(path + param.get(0));
 
 		boolean directoryCreated = newDirectory.mkdir();
 
 		if(directoryCreated){
-			return "Directory Created";
+			return "Directory created on Desktop";
 		} else {
-			return param.get(0) + " is not a proper path";
+			return param.get(0) + " already exists!";
 		}
 	}
 
