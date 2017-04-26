@@ -15,8 +15,8 @@ class Rm extends Command {
 		File currFile = new File(param.get(0));
 
 		boolean deleted = currFile.delete();
-
-		if(currFile.exists() && deleted){
+		
+		if(deleted){
 			return "File " + param.get(0) + " deleted";
 		} else{
 			return "File does not exist";
