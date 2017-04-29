@@ -35,6 +35,8 @@ class Head extends Command {
 			lines++;
 		}
 
+		currFile.close();
+
 		return result;
 
 		} catch(IOException e){

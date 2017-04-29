@@ -17,7 +17,9 @@ class Application {
 
 class TerminalUI extends javax.swing.JFrame implements KeyListener{
 	public final StringBuffer CHAR_BUFFER = new StringBuffer();
-	
+	public final TerminalDFA dfa = new TerminalDFA();
+	final JTextArea tArea =  new JTextArea(15, 50);
+
 	public TerminalUI(){
 		this.setup();
 	}
@@ -33,13 +35,18 @@ class TerminalUI extends javax.swing.JFrame implements KeyListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// TextArea Properties
-		JTextArea tArea = new JTextArea(15, 50);
 		tArea.addKeyListener(this);
 		tArea.setBackground(new Color(0,0,0));
 		tArea.setFont(new Font("Monospace", Font.PLAIN, 15));
 		tArea.setForeground(Color.WHITE);
-		
-		this.add(tArea);
+
+		tArea.append(System.getProperty("user.name")+">");
+		tArea.setCaretPosition(tArea.getText().length());
+
+		JScrollPane scrollPane = new JScrollPane(tArea);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+		this.add(scrollPane);
 		this.pack();
 	}
 
@@ -79,8 +86,14 @@ class TerminalUI extends javax.swing.JFrame implements KeyListener{
 					CHAR_BUFFER.delete(CHAR_BUFFER.length()-1,CHAR_BUFFER.length());
 				}
 				break;
+			case KeyEvent.VK_SHIFT:
+				e.consume();
+				break;
 			case KeyEvent.VK_ENTER:
-				//TODO Add DFA driver as well as implementing new line
+				e.consume();
+				String input = CHAR_BUFFER.toString();
+				String result = dfa.processString(input);
+				setUser(result);
 				CHAR_BUFFER.delete(0, CHAR_BUFFER.length());
 				break;
 			default:
@@ -94,5 +107,12 @@ class TerminalUI extends javax.swing.JFrame implements KeyListener{
 	*/
 
 	public void keyReleased(KeyEvent e){
+	}
+
+	public void setUser(String result){
+		this.tArea.append("\n" + result);
+		this.tArea.append("\n" + System.getProperty("user.name")+">");
+		this.tArea.setCaretPosition(tArea.getDocument().getLength());
+
 	}
 }
