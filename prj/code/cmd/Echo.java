@@ -10,9 +10,9 @@ class Echo extends Command {
 	public String execute(ArrayList<String> param, ArrayList<String> option){
 		
 		if(option.size() > 0){
-			if(option.get(0) == "-help"){
+			if(option.get(0).equals("-help")){
 				return "Echos the input to the screen. Can include -up for uppercase and -low for lowercase";
-			} else if(option.get(0) == "-up"){
+			} else if(option.get(0).equals("-up")){
 				return param.get(0).toUpperCase();
 			} else{
 				return param.get(0).toLowerCase();

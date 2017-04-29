@@ -10,7 +10,7 @@ class Head extends Command {
 	public static final int PARAM_LEN = 1;
 	public static final int OPTION_LEN = 1;
 
-	public String execute(ArrayList<String> param, int option){
+	public String execute(ArrayList<String> param, ArrayList<String> option){
 		String result = "";
 		
 		File currFile = new File(param.get(0));
@@ -25,7 +25,12 @@ class Head extends Command {
 		int lines = 0;
 		String line = "";
 
-		while((lines < option) && (line = buff.readLine()) != null){
+		String len = option.get(0);
+		len = len.substring(1, len.length());
+
+		int optionValue = Integer.parseInt(len);
+
+		while((lines < optionValue) && (line = buff.readLine()) != null){
 			result += line + "\n";
 			lines++;
 		}

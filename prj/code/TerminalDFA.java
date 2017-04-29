@@ -13,9 +13,9 @@ class TerminalDFA {
 	final int Q7 = 7; // Echo + option + param
 	final int Q8 = 8; // Echo + param
 	final int Q9 = 9; // Man
-	final int Q10  10; // Man + param
+	final int Q10 = 10; // Man + param
 	final int Q11 = 11; // Rm
-	final int Q12  12; // Rm + option
+	final int Q12 = 12; // Rm + option
 	final int Q13 = 13; // Rm + option + param
 	final int Q14 = 14; // Rm + param
 	final int Q15 = 15; // Cp
@@ -132,15 +132,162 @@ class TerminalDFA {
 				case Q2:
 					state = Q24;
 					break;
-					
+
 				case Q3:
-					state = Q4;
-					break;
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q4;
+					}
+				break;
+
 				case Q4:
-					params.add(input[i]);
-					state = Q5;
+					state = Q24;
 					break;
+
 				case Q5:
+					if(input[i].equals("-help") || input[i].equals("-up") || input[i].equals("-down")){
+						option.add(input[i]);
+						state = Q6;
+					} else if(!input[i].contains("-")) {
+						params.add(input[i]);
+						state = Q8;
+					} else {
+						state = Q24;
+					}
+					break;
+
+				case Q6:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q7;
+					}
+					break;
+
+				case Q7:
+					state = Q24;
+					break;
+
+				case Q8:
+					state = Q24;
+					break;
+
+				case Q9:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q10;
+					}
+					break;
+
+				case Q10:
+					state = Q24;
+					break;
+
+				case Q11:
+					if(input[i] == "-help"){
+						option.add(input[i]);
+						state = Q12;
+					} else {
+						params.add(input[i]);
+						state = Q14;
+					}
+					break;
+
+				case Q12:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q13;
+					}
+					break;
+
+				case Q13:
+					state = Q24;
+					break;
+
+				case Q14:
+					state = Q24;
+					break;
+
+				case Q15:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q16;
+					}
+					break;
+
+				case Q16:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q17;
+					}
+					break;
+
+				case Q17:
+					state = Q24;
+					break;
+
+				case Q18:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q19;
+					}
+					break;
+
+				case Q19:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q19;
+					}
+					break;
+
+				case Q20:
+					if(input[i].charAt(0) == '-'){
+						option.add(input[i]);
+						state = Q21;
+					} else {
+						params.add(input[i]);
+						state = Q23;
+					}
+					break;
+
+				case Q21:
+					if(input[i].charAt(0) == '-'){
+						state = Q24;
+					} else {
+						params.add(input[i]);
+						state = Q22;
+					}
+					break;
+
+				case Q22:
+					state = Q24;
+					break;
+
+				case Q23:
+					state = Q24;
+					break;
+
+				case Q24:
+					state = state;
+					break;
+
+				default:
+					state = Q24;
 					break;
 			}
 		}
@@ -155,9 +302,43 @@ class TerminalDFA {
 				return whoami.execute(option);
 			case Q4:
 				return mkdir.execute(params);
+			case Q7:
+				return echo.execute(params, option);
+			case Q8:
+				return echo.execute(params, option);
+			case Q10:
+				return man.execute(params);
+			case Q13:
+				return rm.execute(params, option);
+			case Q14:
+				return rm.execute(params, option);
+			case Q17:
+				return cp.execute(params);
+			case Q19:
+				return touch.execute(params);
+			case Q22:
+				return head.execute(params, option);
+			case Q23:
+				option.add("-10");
+				return head.execute(params, option);
 			default:
 				return "Error";
 		}
+	}
+
+	public void clearCache(){
+		option.clear();
+		params.clear();
+	}
+
+	public String processString(String input){
+		String[] toProcess = input.split(" ");
+		int state = process(toProcess);
+		
+		String result = getResult(state);
+		clearCache();
+
+		return result;
 	}
 
 }
