@@ -1,0 +1,15 @@
+This file contains the list of valid commands
+
+whoami 
+whoami -help
+touch <filenames>
+rm -help <full file path>
+rm <full file path>
+mkdir <full directory path>
+man <any of the commands here>
+head -1 - -10 <full file path>
+echo <text>
+echo -help <text>
+echo -up <text>
+echo -down <text>
+cp <full file path> <full directory path>
