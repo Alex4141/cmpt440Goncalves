@@ -1,0 +1,7 @@
+40 pts
+
+The project attempts to to mimic a Linux/Unix Shell, to execute simple
+commands. The idea has good merit. 
+
+Overall:
+- Decent work above average of a Formal Languages student. 
